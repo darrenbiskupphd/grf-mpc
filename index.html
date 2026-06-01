@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRF-Aware MPC for Upright Physical Assistance</title>
+    <style>
+        :root { --primary: #3273dc; --text: #24292e; --bg: #fff; --muted: #586069; --border: #eaecef; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; margin: 0; padding: 0; }
+        .container { max-width: 840px; margin: 0 auto; padding: 4rem 2rem; }
+        
+        /* Typography */
+        h1 { font-size: 2.2rem; line-height: 1.25; text-align: center; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+        h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-top: 3rem; margin-bottom: 1rem; font-weight: 600; }
+        p { text-align: justify; margin-bottom: 1.5rem; }
+        
+        /* Author Block */
+        .authors { text-align: center; font-size: 1.15rem; margin-bottom: 0.25rem; font-weight: 500; }
+        .affiliations { text-align: center; font-size: 1rem; color: var(--muted); margin-bottom: 0.5rem; }
+        .footnotes { text-align: center; font-size: 0.85rem; color: var(--muted); margin-bottom: 2.5rem; }
+        
+        /* Buttons */
+        .links { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3.5rem; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--text); color: var(--bg); padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: background 0.2s; }
+        .btn:hover { background: #000; }
+        svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* Grids & Media */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .media-box { background: #f6f8fa; border: 1px solid #d1d5da; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; }
+        .media-placeholder { width: 100%; height: 280px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-family: monospace; text-align: center; padding: 1rem; box-sizing: border-box; background: #e1e4e8; }
+        .caption { padding: 0.75rem; font-size: 0.9rem; text-align: center; background: #f6f8fa; border-top: 1px solid #d1d5da; color: var(--muted); }
+        
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; margin-bottom: 1.5rem; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        pre { background: #f6f8fa; padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; border: 1px solid var(--border); }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <h1>Ground Reaction Force-Aware Model Predictive Control for Underactuated Upright Physical Assistance</h1>
+        
+        <div class="authors">Darren Biskup<sup>1</sup>, Jeonghan Yu<sup>1, *</sup>, Zibo Yu<sup>1, *</sup>, and Sunil K. Agrawal<sup>1, †</sup></div>
+        <div class="affiliations"><sup>1</sup> Columbia University</div>
+        <div class="footnotes"><sup>*</sup> Equal contribution &nbsp; <sup>†</sup> Corresponding author</div>
+        
+        <div class="links">
+            <a href="#" class="btn">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> Paper
+            </a>
+            <a href="#" class="btn">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> Code
+            </a>
+            <a href="#summary-video" class="btn">
+                <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> YouTube
+            </a>
+        </div>
+
+        <div class="grid-2">
+            <div class="media-box">
+                <div class="media-placeholder">[Video: 8-Cable Impedance Perturbation]</div>
+                <div class="caption"><strong>Baseline:</strong> 8-Cable Impedance Control. Reactive response yields higher peak CoM displacement.</div>
+            </div>
+            <div class="media-box">
+                <div class="media-placeholder">[Video: 4-Cable MPC Perturbation]</div>
+                <div class="caption"><strong>Proposed:</strong> 4-Cable GRF-MPC. Proactive force optimization reduces peak excursion by 20%.</div>
+            </div>
+        </div>
+
+<!-- MOTIVATION -->
+<h2>Motivation & Abstract</h2>
+<p>Current assistive exoskeletons and rehabilitation robots are fundamentally limited by their inability to predict human volitional joint torques. To guarantee stability, these systems typically pre-compute trajectories that satisfy ZMP stability constraints&mdash;then enforce them via stiff reactive tracking. This approach fundamentally treats all deviations from the planned trajectory as disturbances which can counteract human intent.</p>
+<p>We address this by incorporating measured ground reaction forces (GRFs) directly into a receding-horizon MPC. Exploiting the fact that centroidal dynamics are strictly determined by boundary forces, live GRF tracking provides an exact predictive model independent of the user's internal joint torques. This enables the proactive optimization of assistive inputs to track dynamically feasible trajectories.</p>
+<p>Validated on a custom cable-driven rehabilitation system against a fully-actuated impedance baseline, the MPC yielded a <strong>24% reduction in dynamic tracking error</strong>, commanded <strong>29% less mechanical work</strong>, and permitted a <strong>46% larger volitional workspace</strong>.</p>
+        <h2>System Architecture</h2>
+        <div class="grid-2">
+            <div class="media-box">
+                <div class="media-placeholder">[Image: Hardware Schematic]</div>
+                <div class="caption">Schematic of the custom cable-driven system highlighting motion tracking and force plate integration.</div>
+            </div>
+            <div class="media-box">
+                <div class="media-placeholder">[Image: Centroidal Dynamics MPC]</div>
+                <div class="caption">Control block diagram mapping contact GRFs to the human spatial Center of Mass via single rigid body approximation.</div>
+            </div>
+        </div>
+
+        <h2>Dynamic Tracking (Lunge Task)</h2>
+        <div class="grid-2">
+            <div class="media-box">
+                <div class="media-placeholder">[Video: 8-Cable Impedance Lunge]</div>
+                <div class="caption"><strong>Baseline:</strong> Fully-actuated rigid path enforcement.</div>
+            </div>
+            <div class="media-box">
+                <div class="media-placeholder">[Video: 4-Cable MPC Lunge]</div>
+                <div class="caption"><strong>Proposed:</strong> Underactuated MPC successfully tracks trajectory with less robotic effort.</div>
+            </div>
+        </div>
+
+        <h2 id="summary-video">Summary Video</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/YOUR_YOUTUBE_ID" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+
+        <h2>BibTeX</h2>
+        <pre><code>@article{biskup2026novel,
+  title={Ground Reaction Force-Aware Model Predictive Control for Underactuated Upright Physical Assistance},
+  author={Biskup, Darren and Yu, Jeonghan and Yu, Zibo and Agrawal, Sunil K.},
+  journal={IEEE Robotics and Automation Letters (RA-L)},
+  year={2026},
+  publisher={IEEE}
+}</code></pre>
+
+    </div>
+</body>
+</html>
