@@ -26,6 +26,7 @@
         svg { width: 18px; height: 18px; fill: currentColor; }
 
         /* Grids & Media */
+        .grid-1 { display: grid; grid-template-columns: 1fr; width: fit-content; max-width: 100%; margin: 0 auto 1.5rem auto; gap: 1.5rem; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
         .media-box { background: #f6f8fa; border: 1px solid #d1d5da; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; }
         .media-placeholder { width: 100%; height: 280px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-family: monospace; text-align: center; padding: 1rem; box-sizing: border-box; background: #e1e4e8; }
@@ -34,6 +35,16 @@
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 6px; margin-bottom: 1.5rem; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
+        .diagram-img {
+            width: 100%;
+            height: auto;
+            max-height: none;
+            object-fit: contain;
+            padding: 1rem;
+            box-sizing: border-box;
+            background: #fff; /* White background for transparent images (e.g. PNG/SVG) */
+        }
+
         pre { background: #f6f8fa; padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; border: 1px solid var(--border); }
 
         /* Mobile Responsiveness */
@@ -80,13 +91,13 @@
 <p>We address this by incorporating measured ground reaction forces (GRFs) directly into a receding-horizon MPC. Exploiting the fact that centroidal dynamics are strictly determined by boundary forces, live GRF tracking provides an exact predictive model independent of the user's internal joint torques. This enables the proactive optimization of assistive inputs to track dynamically feasible trajectories.</p>
 <p>Validated on a custom cable-driven rehabilitation system against a fully-actuated impedance baseline, the MPC yielded a <strong>24% reduction in dynamic tracking error</strong>, commanded <strong>29% less mechanical work</strong>, and permitted a <strong>46% larger volitional workspace</strong>.</p>
         <h2>System Architecture</h2>
-        <div class="grid-2">
+        <div class="grid-1">
             <div class="media-box">
-                <div class="media-placeholder">[Image: Hardware Schematic]</div>
+                <img src="static/images/schematic.jpg" alt="Hardware Schematic" class="diagram-img">
                 <div class="caption">Schematic of the custom cable-driven system highlighting motion tracking and force plate integration.</div>
             </div>
             <div class="media-box">
-                <div class="media-placeholder">[Image: Centroidal Dynamics MPC]</div>
+                <img src="static/images/block_diagram.jpg" alt="Centroidal Dynamics MPC Block Diagram" class="diagram-img">
                 <div class="caption">Control block diagram mapping contact GRFs to the human spatial Center of Mass via single rigid body approximation.</div>
             </div>
         </div>
