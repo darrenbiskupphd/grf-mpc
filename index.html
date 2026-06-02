@@ -7,7 +7,7 @@
     <style>
         :root { --primary: #3273dc; --text: #24292e; --bg: #fff; --muted: #586069; --border: #eaecef; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; margin: 0; padding: 0; }
-        .container { max-width: 840px; margin: 0 auto; padding: 4rem 2rem; }
+        .container { max-width: 1024px; margin: 0 auto; padding: 4rem 2rem; }
         
         /* Typography */
         h1 { font-size: 2.2rem; line-height: 1.25; text-align: center; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
@@ -45,10 +45,24 @@
             background: #fff; /* White background for transparent images (e.g. PNG/SVG) */
         }
 
+        .gif-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-grow: 1;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
         pre { background: #f6f8fa; padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; border: 1px solid var(--border); }
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
+            .container { padding: 2.5rem 1.25rem; } /* Less empty space around edges on phones */
+            h1 { font-size: 1.6rem; } /* Shrink main title */
+            h2 { font-size: 1.2rem; margin-top: 2rem; } /* Shrink section titles */
+            body { font-size: 0.95rem; } /* Slightly reduce overall text size */
             .grid-2 { grid-template-columns: 1fr; }
         }
     </style>
@@ -58,29 +72,29 @@
         
         <h1>Ground Reaction Force-Aware Model Predictive Control for Underactuated Upright Physical Assistance</h1>
         
-        <div class="authors">Darren Biskup, Jeonghan Yu<sup>*</sup>, Zibo Yu<sup>*</sup>, and Sunil K. Agrawal<sup>†</sup></div>
+        <div class="authors"><a href="https://www.linkedin.com/in/darrenbiskup/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Darren Biskup</a>, <a href="https://www.linkedin.com/in/jeonghan-yu/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Jeonghan Yu</a><sup>*</sup>, <a href="https://www.linkedin.com/in/zibo-yu/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">Zibo Yu</a><sup>*</sup>, and Sunil K. Agrawal<sup>†</sup></div>
         <div class="footnotes"><sup>*</sup> Equal contribution &nbsp; <sup>†</sup> Corresponding author</div>
         
         <div class="links">
-            <a href="#" class="btn">
+            <a href="#" class="btn" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> Paper
             </a>
-            <a href="#" class="btn">
+            <a href="https://github.com/darrenbiskupphd/grf-mpc-RobUST-trainer" class="btn" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> Code
             </a>
-            <a href="#summary-video" class="btn">
+            <a href="https://youtu.be/y8rp-Rn-BlI" class="btn" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg> YouTube
             </a>
         </div>
 
         <div class="grid-2">
             <div class="media-box">
-                <div class="media-placeholder">[Video: 8-Cable Impedance Perturbation]</div>
+                <img src="static/gifs/standing_pert_imp.gif" alt="8-Cable Impedance Perturbation" class="gif-img">
                 <div class="caption"><strong>Baseline:</strong> 8-Cable Impedance Control. Reactive response yields higher peak CoM displacement.</div>
             </div>
             <div class="media-box">
-                <div class="media-placeholder">[Video: 4-Cable MPC Perturbation]</div>
-                <div class="caption"><strong>Proposed:</strong> 4-Cable GRF-MPC. Proactive force optimization reduces peak excursion by 19.6%.</div>
+                <img src="static/gifs/standing_pert_mpc.gif" alt="4-Cable GRF-MPC Perturbation" class="gif-img">
+                <div class="caption"><strong>This work:</strong> 4-Cable GRF-MPC. Proactive force optimization reduces peak excursion by 19.6%.</div>
             </div>
         </div>
 
@@ -104,27 +118,27 @@
         <h2>Dynamic Tracking (Lunge Task)</h2>
         <div class="grid-2">
             <div class="media-box">
-                <div class="media-placeholder">[Video: 8-Cable Impedance Lunge]</div>
-                <div class="caption"><strong>Baseline:</strong> Fully-actuated rigid path enforcement.</div>
+                <img src="static/gifs/lunge_imp.gif" alt="8-Cable Impedance Lunge" class="gif-img">
+                <div class="caption"><strong>Baseline:</strong> 8-Cable Impedance Control: rigid path enforcement.</div>
             </div>
             <div class="media-box">
-                <div class="media-placeholder">[Video: 4-Cable MPC Lunge]</div>
-                <div class="caption"><strong>Proposed:</strong> Underactuated MPC successfully tracks trajectory with less robotic effort.</div>
+                <img src="static/gifs/lunge_mpc.gif" alt="4-Cable GRF-MPC Lunge" class="gif-img">
+                <div class="caption"><strong>This work:</strong> 4-Cable GRF-MPC: Improved tracking with less robotic effort.</div>
             </div>
         </div>
 
         <h2 id="summary-video">Summary Video</h2>
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/YOUR_YOUTUBE_ID" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://youtu.be/y8rp-Rn-BlI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
 
         <h2>BibTeX</h2>
-        <pre><code>@article{Biskup2026,
-  title={Ground Reaction Force-Aware Model Predictive Control for Underactuated Upright Physical Assistance},
-  author={Biskup, Darren and Yu, Jeonghan and Yu, Zibo and Agrawal, Sunil K.},
-  journal={IEEE Robotics and Automation Letters (RA-L)},
-  year={2026},
-  publisher={IEEE}
+<pre><code>@article{Biskup2026,
+    title={Ground Reaction Force-Aware Model Predictive Control for Underactuated Upright Physical Assistance},
+    author={Biskup, Darren and Yu, Jeonghan and Yu, Zibo and Agrawal, Sunil K.},
+    journal={IEEE Robotics and Automation Letters (RA-L)},
+    year={2026},
+    publisher={IEEE}
 }</code></pre>
 
     </div>
