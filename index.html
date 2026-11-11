@@ -186,8 +186,9 @@
         (() => {
             const videos = [...document.querySelectorAll('.demo-video')];
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-            const nearby = new Set();
-            const visible = new Set();
+            const topVideos = videos.slice(0, 2);
+            const bottomVideos = videos.slice(2);
+            const visible = new Set(topVideos);
 
             function loadVideo(video) {
                 if (!video.hasAttribute('src')) {
@@ -213,7 +214,7 @@
                         video.pause();
                         return;
                     }
-                    if (nearby.has(video) || visible.has(video)) loadVideo(video);
+                    if (visible.has(video)) loadVideo(video);
                     if (visible.has(video)) {
                         // Autoplay may be blocked by device power-saving policies.
                         // Keep the poster visible rather than adding player controls.
@@ -225,26 +226,21 @@
             }
 
             if ('IntersectionObserver' in window) {
+                // One shared trigger for the bottom pair; playback remains independent.
                 const loadObserver = new IntersectionObserver(entries => {
-                    entries.forEach(({ target, isIntersecting }) => {
-                        if (isIntersecting) nearby.add(target);
-                        else nearby.delete(target);
-                    });
-                    updateVideos();
+                    if (entries.some(entry => entry.isIntersecting)) {
+                        bottomVideos.forEach(video => visible.add(video));
+                        updateVideos();
+                        loadObserver.disconnect();
+                    }
                 }, { rootMargin: '300px 0px' });
-                const playObserver = new IntersectionObserver(entries => {
-                    entries.forEach(({ target, isIntersecting }) => {
-                        if (isIntersecting) visible.add(target);
-                        else visible.delete(target);
-                    });
-                    updateVideos();
-                });
-                videos.forEach(video => {
-                    loadObserver.observe(video);
-                    playObserver.observe(video);
-                });
+                loadObserver.observe(bottomVideos[0].closest('.grid-2'));
+            } else {
+                // Without lazy-loading support, simply start all four videos.
+                bottomVideos.forEach(video => visible.add(video));
             }
-            // Older browsers without IntersectionObserver retain the static posters.
+            // The top pair starts immediately, without waiting for an observer.
+            updateVideos();
             reducedMotion.addEventListener('change', updateVideos);
             document.addEventListener('visibilitychange', updateVideos);
         })();
