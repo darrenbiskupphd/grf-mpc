@@ -66,14 +66,15 @@
             background: #fff; /* White background for transparent images (e.g. PNG/SVG) */
         }
 
-        .gif-img {
+        .demo-video {
             width: 100%;
-            height: 100%;
+            height: auto;
+            aspect-ratio: 1014 / 720;
             object-fit: cover;
-            flex-grow: 1;
             display: block;
             margin: 0;
             padding: 0;
+            pointer-events: none;
         }
 
         pre { background: #f6f8fa; padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: monospace; font-size: 0.85rem; border: 1px solid var(--border); }
@@ -127,11 +128,11 @@
 
         <div class="grid-2">
             <div class="media-box">
-                <img src="static/gifs/standing_pert_imp.gif" alt="8-Cable Impedance Perturbation" class="gif-img">
+                <video class="demo-video" width="1014" height="720" muted loop playsinline disablepictureinpicture disableremoteplayback preload="none" poster="static/images/posters/standing_pert_imp.jpg" data-src="static/videos/standing_pert_imp.mp4" aria-label="8-Cable Impedance Perturbation"></video>
                 <div class="caption"><strong>Baseline:</strong> 8-Cable Impedance Control. Reactive response yields higher peak CoM displacement.</div>
             </div>
             <div class="media-box">
-                <img src="static/gifs/standing_pert_mpc.gif" alt="4-Cable GRF-MPC Perturbation" class="gif-img">
+                <video class="demo-video" width="1014" height="720" muted loop playsinline disablepictureinpicture disableremoteplayback preload="none" poster="static/images/posters/standing_pert_mpc.jpg" data-src="static/videos/standing_pert_mpc.mp4" aria-label="4-Cable GRF-MPC Perturbation"></video>
                 <div class="caption"><strong>This work:</strong> 4-Cable GRF-MPC. Proactive force optimization reduces peak excursion by 19.6%.</div>
             </div>
         </div>
@@ -156,11 +157,11 @@
         <h2>Dynamic Tracking (Lunge Task)</h2>
         <div class="grid-2">
             <div class="media-box">
-                <img src="static/gifs/lunge_imp.gif" alt="8-Cable Impedance Lunge" class="gif-img">
+                <video class="demo-video" width="1014" height="720" muted loop playsinline disablepictureinpicture disableremoteplayback preload="none" poster="static/images/posters/lunge_imp.jpg" data-src="static/videos/lunge_imp.mp4" aria-label="8-Cable Impedance Lunge"></video>
                 <div class="caption"><strong>Baseline:</strong> 8-Cable Impedance Control: rigid path enforcement.</div>
             </div>
             <div class="media-box">
-                <img src="static/gifs/lunge_mpc.gif" alt="4-Cable GRF-MPC Lunge" class="gif-img">
+                <video class="demo-video" width="1014" height="720" muted loop playsinline disablepictureinpicture disableremoteplayback preload="none" poster="static/images/posters/lunge_mpc.jpg" data-src="static/videos/lunge_mpc.mp4" aria-label="4-Cable GRF-MPC Lunge"></video>
                 <div class="caption"><strong>This work:</strong> 4-Cable GRF-MPC: Improved tracking with less robotic effort.</div>
             </div>
         </div>
@@ -181,5 +182,72 @@
 }</code></pre>
 
     </div>
+    <script>
+        (() => {
+            const videos = [...document.querySelectorAll('.demo-video')];
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const nearby = new Set();
+            const visible = new Set();
+
+            function loadVideo(video) {
+                if (!video.hasAttribute('src')) {
+                    video.muted = true;
+                    video.preload = 'auto';
+                    video.src = video.dataset.src;
+                    video.load();
+                }
+            }
+
+            function updateVideos() {
+                videos.forEach(video => {
+                    if (reducedMotion.matches) {
+                        video.pause();
+                        // Restore the poster and stop downloading when motion is disabled.
+                        if (video.hasAttribute('src')) {
+                            video.removeAttribute('src');
+                            video.load();
+                        }
+                        return;
+                    }
+                    if (document.hidden) {
+                        video.pause();
+                        return;
+                    }
+                    if (nearby.has(video) || visible.has(video)) loadVideo(video);
+                    if (visible.has(video)) {
+                        // Autoplay may be blocked by device power-saving policies.
+                        // Keep the poster visible rather than adding player controls.
+                        video.play().catch(() => {});
+                    } else {
+                        video.pause();
+                    }
+                });
+            }
+
+            if ('IntersectionObserver' in window) {
+                const loadObserver = new IntersectionObserver(entries => {
+                    entries.forEach(({ target, isIntersecting }) => {
+                        if (isIntersecting) nearby.add(target);
+                        else nearby.delete(target);
+                    });
+                    updateVideos();
+                }, { rootMargin: '300px 0px' });
+                const playObserver = new IntersectionObserver(entries => {
+                    entries.forEach(({ target, isIntersecting }) => {
+                        if (isIntersecting) visible.add(target);
+                        else visible.delete(target);
+                    });
+                    updateVideos();
+                });
+                videos.forEach(video => {
+                    loadObserver.observe(video);
+                    playObserver.observe(video);
+                });
+            }
+            // Older browsers without IntersectionObserver retain the static posters.
+            reducedMotion.addEventListener('change', updateVideos);
+            document.addEventListener('visibilitychange', updateVideos);
+        })();
+    </script>
 </body>
 </html>
